@@ -59,3 +59,36 @@ async function fetchDataAsync() {
         return error;
     }
 }
+
+
+// async generator
+let button2 = document.getElementById('load');
+let dataList = document.getElementById('dataList');
+
+async function* pagesData() {
+    const pages = [
+        ['Page 1', 'Page 2', 'Page 3'],
+        ['Page 4', 'Page 5', 'Page 6'],
+        ['Page 7', 'Page 8', 'Page 9']
+    ];
+
+    for (let page of pages) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        yield page;
+    }
+}
+
+button2.addEventListener('click', async () => {
+    button2.disabled = true;
+    dataList.innerHTML = '';
+
+    for await (let data of pagesData()) {
+        data.forEach(item => {
+            let li = document.createElement('li');
+            li.textContent = item;
+            dataList.appendChild(li);
+        });
+    }
+
+    button2.disabled = false;
+});
