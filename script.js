@@ -90,5 +90,6 @@ button2.addEventListener('click', async () => {
         });
     }
 
+    console.log('All data loaded');
     button2.disabled = false;
 });
